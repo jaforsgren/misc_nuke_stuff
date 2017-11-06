@@ -32,7 +32,3 @@ nuke.pluginAddPath('//DISKSTATION/Projects/_Admin/Lokaler_utrustning_can/Datorer
 nuke.pluginAddPath('//DISKSTATION/Projects/_Admin/Lokaler_utrustning_can/Datorer_natverk/shared/workgroups/nuke/globals/Tools')
 
 
-###adding pluginpaths for comp gizmos from Nukepedia###
-nuke.pluginAddPath(
-    '//DISKSTATION/Projects/_Admin/Lokaler_utrustning_can/Datorer_natverk/shared/workgroups/nuke/globals/gizmos/Nukepedia')
-
