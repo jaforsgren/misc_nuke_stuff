@@ -1,0 +1,217 @@
+#! C:/Program Files/Nuke8.0v5/nuke-8.0.v5.dll -nx
+
+Gizmo {
+ inputs 3
+ tile_color 0xff8300ff
+ addUserKnob {20 LightWrap}
+ addUserKnob {20 bgDetails l "BG Details" n 1}
+ bgDetails 0
+ addUserKnob {41 bgCetails l "Level of BG Details" T Blur13.size}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 divline2 l "" +STARTLINE}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {41 size l "<font color=\"orange\">Softness and Size of LightWrap" T Blur12.size}
+ addUserKnob {26 divLine1 l "<font color=\"orange\">Opacity and look of lightwrap"}
+ addUserKnob {41 black l lift T Grade4.black}
+ addUserKnob {41 white l gain T Grade4.white}
+ addUserKnob {41 multiply T Grade4.multiply}
+ addUserKnob {41 add l offset T Grade4.add}
+ addUserKnob {41 gamma T Grade4.gamma}
+ addUserKnob {26 divline3 l "" +STARTLINE}
+ addUserKnob {41 mix l "LightWrap Mix" T Merge10.mix}
+ addUserKnob {6 disable_1 l "Disable LightWrap" +STARTLINE}
+ addUserKnob {26 divline4 l "" +STARTLINE}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode15
+  tile_color 0xce631eff
+  gl_color 0xff0000ff
+  label LightWrap
+  note_font_size 42
+  xpos -1158
+  ypos -122
+  bdwidth 923
+  bdheight 724
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote4
+  tile_color 0xff0000ff
+  label 1)
+  note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+  note_font_size 80
+  xpos -942
+  ypos -71
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote1
+  tile_color 0xff0000ff
+  label 2)
+  note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+  note_font_size 80
+  xpos -671
+  ypos -89
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote2
+  tile_color 0xff0000ff
+  label 3)
+  note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+  note_font_size 80
+  xpos -395
+  ypos -77
+ }
+ Input {
+  inputs 0
+  name comp
+  label Input3
+  xpos -399
+  ypos 21
+  number 2
+ }
+set N6cc920c0 [stack 0]
+ Dot {
+  name Dot1
+  xpos -273
+  ypos 24
+ }
+ Dot {
+  name Dot2
+  xpos -273
+  ypos 647
+ }
+ Input {
+  inputs 0
+  name matte
+  label Input1
+  xpos -943
+  ypos 15
+ }
+ NoOp {
+  name wrap_Input1
+  label "(input final alpha Ch here)"
+  xpos -943
+  ypos 58
+ }
+ Invert {
+  channels alpha
+  name Invert2
+  label "(inverted alpha CH)"
+  xpos -943
+  ypos 115
+ }
+set N6cc931f0 [stack 0]
+ Blur {
+  size 40
+  name Blur12
+  label "(Softness and size of LightWrap)"
+  xpos -1078
+  ypos 167
+ }
+push $N6cc931f0
+ Merge2 {
+  inputs 2
+  operation out
+  name Merge8
+  label "(final wrap matte)"
+  xpos -943
+  ypos 236
+ }
+ Dot {
+  name Dot32
+  xpos -911
+  ypos 322
+ }
+ Input {
+  inputs 0
+  name BG
+  label Input2
+  xpos -673
+  ypos 7
+  number 1
+ }
+ NoOp {
+  name wrap_Input2
+  label "(input final BG here)"
+  xpos -673
+  ypos 52
+ }
+ Blur {
+  size 21
+  name Blur13
+  label "(knock out BG details)"
+  xpos -673
+  ypos 104
+ }
+ Dot {
+  name Dot33
+  xpos -641
+  ypos 322
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy3
+  label "(join wrap alpha with wrap FG)"
+  xpos -789
+  ypos 311
+ }
+ Grade {
+  multiply 1.25
+  gamma 0.68
+  name Grade4
+  label "(opacity and look of wrap)"
+  xpos -789
+  ypos 404
+ }
+ Premult {
+  name Premult5
+  label "whipe out pixels not in the wrap to black"
+  xpos -789
+  ypos 469
+ }
+push $N6cc920c0
+ NoOp {
+  name wrap_Input3
+  label "(input final comp here)"
+  xpos -399
+  ypos 84
+ }
+ Dot {
+  name Dot34
+  xpos -367
+  ypos 546
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox B
+  name Merge10
+  label "(Comps bright areas more opaque)"
+  xpos -789
+  ypos 540
+ }
+ Switch {
+  inputs 2
+  which {{parent.disable_1}}
+  name Switch1
+  label "link to turn onn and off the lightwrap"
+  xpos -789
+  ypos 650
+ }
+ Output {
+  name Output1
+  xpos -789
+  ypos 792
+ }
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos -700
+  ypos 824
+ }
+end_group

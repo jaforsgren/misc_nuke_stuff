@@ -1,0 +1,197 @@
+#! C:/Program Files/Nuke10.5v6/nuke-10.5.6.dll -nx
+version 10.5 v6
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1920" h="1160" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1241" stretch="1"/>
+            <splitter orientation="2">
+                <split size="642"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="452"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.scripteditor.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name //DISKSTATION/Projects/_Admin/Lokaler_utrustning_can/Datorer_natverk/shared/workgroups/nuke/globals/templates/DyPassgrader.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+add_layer {VrayReflection VrayReflection.red VrayReflection.green VrayReflection.blue}
+Group {
+ inputs 0
+ name PassGrader
+ tile_color 0xff5010ff
+ label "\[value this.Channel]"
+ selected true
+ xpos 1374
+ ypos -337
+ addUserKnob {20 User}
+ addUserKnob {26 ""}
+ addUserKnob {26 logoLabel l "" +STARTLINE T "Dynagraph Pass Grader"}
+ addUserKnob {26 ""}
+ addUserKnob {41 Channel l Channels T MergeMinus.Bchannels}
+ addUserKnob {26 ""}
+ addUserKnob {20 Grade n 1}
+ addUserKnob {41 blackpoint T Grade2.blackpoint}
+ addUserKnob {41 whitepoint T Grade2.whitepoint}
+ addUserKnob {41 black l lift T Grade2.black}
+ addUserKnob {41 white l gain T Grade2.white}
+ addUserKnob {41 gamma T Grade2.gamma}
+ addUserKnob {41 saturation T Saturation1.saturation}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 Between n 1}
+ addUserKnob {41 whitepoint_1 l whitepoint T base.whitepoint}
+ addUserKnob {41 white_1 l gain T base.white}
+ addUserKnob {41 gamma_1 l gamma T base.gamma}
+ addUserKnob {41 black_1 l lift T base.black}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+}
+ Input {
+  inputs 0
+  name Mask
+  xpos 795
+  ypos 157
+  number 1
+ }
+ Dot {
+  name Dot1
+  xpos 829
+  ypos 245
+ }
+set N4e1ad800 [stack 0]
+ Dot {
+  name Dot3
+  xpos 829
+  ypos 519
+ }
+set N4e1ad400 [stack 0]
+ Dot {
+  name Dot2
+  xpos 829
+  ypos 697
+ }
+ Input {
+  inputs 0
+  name B
+  xpos 496
+  ypos 53
+ }
+ Dot {
+  name Dot6
+  xpos 530
+  ypos 190
+ }
+set N4e1ac800 [stack 0]
+ Dot {
+  name Dot7
+  xpos 160
+  ypos 190
+ }
+ Dot {
+  name Dot8
+  xpos 160
+  ypos 245
+ }
+set N4e1ac000 [stack 0]
+ Grade {
+  channels {{{MergeMinus.Bchannels}}}
+  name Grade2
+  xpos 126
+  ypos 447
+  disable true
+ }
+ Saturation {
+  channels {{{MergeMinus.Bchannels}}}
+  name Saturation1
+  xpos 126
+  ypos 530
+  disable true
+ }
+ Dot {
+  name Dot9
+  xpos 160
+  ypos 697
+ }
+push $N4e1ad400
+push $N4e1ad800
+push $N4e1ac000
+push $N4e1ac800
+ Merge2 {
+  inputs 2+1
+  operation minus
+  Bchannels VrayReflection
+  name MergeMinus
+  label "\[value Bchannels]"
+  xpos 496
+  ypos 235
+ }
+set N4e1c9000 [stack 0]
+ Grade {
+  inputs 1+1
+  name base
+  selected true
+  xpos 496
+  ypos 504
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  Achannels {{{MergeMinus.Bchannels}}}
+  name MergePlus
+  label "\[value Bchannels]"
+  xpos 496
+  ypos 687
+ }
+set N4e1c8800 [stack 0]
+ Dot {
+  name endDot
+  xpos 530
+  ypos 831
+ }
+ Output {
+  name Output1
+  xpos 496
+  ypos 880
+ }
+push $N4e1c9000
+push $N4e1c8800
+push $N4e1c8800
+push 0
+ Viewer {
+  inputs 4
+  frame_range 1-100
+  input_number 1
+  name Viewer1
+  xpos 668
+  ypos 624
+ }
+end_group

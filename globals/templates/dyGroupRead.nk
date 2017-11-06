@@ -1,0 +1,97 @@
+#! C:/Program Files/Nuke10.5v6/nuke-10.5.6.dll -nx
+#write_info dyGroupWrite file:"[value dyGroupRead.output ]/[lindex [split [lindex [split [value dyGroupRead.dyGroupRead_readnode.file ] /] end] .] 0]_[value this.outputname].jpg" format:"1500 1500 1" chans:":rgba.red:rgba.green:rgba.blue:" framerange:"1 100" fps:"0" colorspace:"default (sRGB)" datatype:"8 bit" transfer:"unknown" views:"main" colorManagement:"Nuke"
+version 10.5 v6
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1920" h="1160" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1241" stretch="1"/>
+            <splitter orientation="2">
+                <split size="642"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="452"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.scripteditor.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name //DISKSTATION/Projects/_Admin/Lokaler_utrustning_can/Datorer_natverk/shared/workgroups/nuke/globals/templates/dyGroupRead.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Group {
+ inputs 0
+ name dyGroupRead
+ tile_color 0x9fffff
+ selected true
+ xpos 1265
+ ypos -434
+ addUserKnob {20 User}
+ addUserKnob {26 ""}
+ addUserKnob {2 dir l Directory}
+ dir //DISKSTATION/Projects/Vikingbad/Komponentbibliotek/PreviewStudio/RenderOuput/20171016/
+ addUserKnob {26 ""}
+ addUserKnob {2 output l Output}
+ output //DISKSTATION/Projects/Vikingbad/Komponentbibliotek/PreviewStudio/RenderOuput/20171016/jpg/
+ addUserKnob {26 ""}
+ addUserKnob {22 run l Run! T "import os\ndef getOutputs(node,classof ,writenodelist):\n    \n    o = node.dependent() \n    for i in o:        \n        if  i.Class() == classof:\n            #print i.name()\n            writenodelist.append(i)        \n        writenodelist = getOutputs(i,classof,writenodelist)        \n    return writenodelist\n\n\n\n\ndef run():\n    #r = nuke.toNode('dyGroupRead')\n    r = nuke.thisNode()\n    writeNodes = getOutputs(r,\"Write\",\[])\n    folderpath = r\['dir'].getValue() \n    readFilepath = \"\" \n    print writeNodes\n    with r:\n        readNode = nuke.toNode(\"dyGroupRead_readnode\")\n        readFilepath = readNode\['file'].getValue()\n        readFolder,filename  = os.path.split(readFilepath)\n\n        \n    for render in os.listdir(folderpath):\n\n        readNode.knob('file').setValue(folderpath+render)\n        print render\n    \n        #writeNode.knob('file').setValue(outputDir+render+\".jpg\")  \n        \n    \n        for writeNode in writeNodes:\n            #print writeNode.name()    \n            # set output         \n            outputPath = os.path.join(folderpath, \"jpg\")\n            filename = os.path.splitext(filename)\[0].replace(\".0000\",\"\")   \n            writeNode\['create_directories'].setValue(1)\n            try:\n                nuke.execute(writeNode,0,0)\n            except:\n                 print(\"Could not render\" , render )\n    with r:\n        readNode = nuke.toNode(\"dyGroupRead_readnode\")\n        readNode\['file'].setValue(readFilepath)\n\nrun()\n\n" +STARTLINE}
+}
+ Read {
+  inputs 0
+  file //DISKSTATION/Projects/Vikingbad/Komponentbibliotek/PreviewStudio/RenderOuput/20171016/Oval_61360940000.exr
+  format "1500 1500 0 0 1500 1500 1 "
+  origset true
+  name dyGroupRead_readnode
+  selected true
+  xpos 501
+  ypos -229
+ }
+ Output {
+  name Output1
+  xpos 501
+  ypos -129
+ }
+end_group
+Write {
+ file "\[value dyGroupRead.output ]/\[lindex \[split \[lindex \[split \[value dyGroupRead.dyGroupRead_readnode.file ] /] end] .] 0]_\[value this.outputname].jpg"
+ file_type jpeg
+ create_directories true
+ checkHashOnRead false
+ version 215
+ name dyGroupWrite
+ tile_color 0x9fffff
+ xpos 1265
+ ypos -229
+ addUserKnob {20 User}
+ addUserKnob {26 ""}
+ addUserKnob {1 outputname l "output name"}
+ outputname Write01
+ addUserKnob {26 ""}
+ addUserKnob {26 ""}
+}

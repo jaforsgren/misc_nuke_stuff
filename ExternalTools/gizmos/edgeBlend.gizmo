@@ -1,0 +1,188 @@
+#! C:/Program Files/Nuke8.0v5/nuke-8.0.v5.dll -nx
+version 8.0 v5
+Gizmo {
+ inputs 2
+ tile_color 0xe08701ff
+ addUserKnob {20 User}
+ addUserKnob {41 sizeErodeLare l "<font color=\"orange\">Erode Size (large Erode)" T ErodeLarge.size}
+ addUserKnob {41 erodelSmall l "<font color=\"orange\">Erode Size (Small Erode)" T ErodeSmall.size}
+ addUserKnob {41 blendAmount l "<font color=\"orange\">EdgeBlend Amount" T BlendAmount.size}
+ addUserKnob {26 divline l "" +STARTLINE}
+ addUserKnob {41 mixValue l "Mix Value" t "Dissuse between original at value 0 and full blend at value 1" T comp_edgeBlend.mix}
+ addUserKnob {6 disableEB l "disable EdgeBlend" +STARTLINE}
+ addUserKnob {26 divline02 l "" +STARTLINE}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode14
+  tile_color 0xd87417ff
+  gl_color 0xff0000ff
+  label EdgeBlend
+  note_font_size 42
+  xpos -1002
+  ypos -201
+  bdwidth 599
+  bdheight 767
+ }
+ Input {
+  inputs 0
+  name comp_before_blend
+  label (Input2)
+  xpos -532
+  ypos 244
+  number 1
+ }
+set N36aea410 [stack 0]
+ Dot {
+  name Dot2
+  xpos -328
+  ypos 247
+ }
+ Dot {
+  name Dot1
+  xpos -328
+  ypos 610
+ }
+ Input {
+  inputs 0
+  name matte
+  label Input1
+  xpos -781
+  ypos 6
+ }
+ NoOp {
+  name Blend_Input3
+  label "\n(input final matte here)"
+  xpos -781
+  ypos 64
+ }
+ Dot {
+  name Dot35
+  xpos -753
+  ypos 149
+ }
+set N36aebc20 [stack 0]
+ Erode {
+  size -3
+  name ErodeSmall
+  label "SMALLER MATTE (FG)"
+  xpos -685
+  ypos 197
+ }
+ Dot {
+  name Dot36
+  xpos -657
+  ypos 269
+ }
+push $N36aebc20
+ Erode {
+  size 6.5
+  name ErodeLarge
+  label "LARGER MATTE (BG)"
+  xpos -870
+  ypos 199
+ }
+ Dot {
+  name Dot37
+  xpos -842
+  ypos 269
+ }
+ Merge2 {
+  inputs 2
+  operation out
+  name Merge14
+  xpos -788
+  ypos 272
+ }
+push $N36aea410
+ NoOp {
+  name Blend_Input4
+  label "\n(input final comp before blend here)"
+  xpos -532
+  ypos 325
+ }
+ Dot {
+  name Dot38
+  xpos -656
+  ypos 334
+ }
+set N375b8530 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  label "JOIN EDGE MATTE WITH COMP"
+  xpos -788
+  ypos 325
+ }
+ Premult {
+  name Premult6
+  xpos -788
+  ypos 386
+ }
+ Blur {
+  size 3
+  name BlendAmount
+  label "Amount of Blend of FG and BG"
+  xpos -788
+  ypos 428
+ }
+push $N375b8530
+ Dot {
+  name Dot39
+  xpos -656
+  ypos 512
+ }
+set N375b92f0 [stack 0]
+ Merge2 {
+  inputs 2
+  bbox B
+  mix 0.96
+  name comp_edgeBlend
+  label "comp EdgeBlend"
+  xpos -788
+  ypos 509
+  disable {{parent.disable}}
+ }
+ Switch {
+  inputs 2
+  which {{parent.disableEB}}
+  name Switch1
+  label "diable node"
+  xpos -788
+  ypos 607
+ }
+ Output {
+  name Output1
+  xpos -798
+  ypos 747
+ }
+push $N375b92f0
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos -550
+  ypos 625
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote6
+  tile_color 0xff0000ff
+  label 2)
+  note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+  note_font_size 80
+  xpos -534
+  ypos 132
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote8
+  tile_color 0xff0000ff
+  label 1)
+  note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
+  note_font_size 80
+  xpos -781
+  ypos -99
+ }
+end_group

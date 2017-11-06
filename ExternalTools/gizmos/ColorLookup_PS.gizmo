@@ -1,0 +1,208 @@
+set cut_paste_input [stack 0]
+version 6.2 v1
+push $cut_paste_input
+Group {
+ name ColorLookup_PS_D
+ help "By: Joshua LaCross. \n\n"
+ tile_color 0x79a9ffff
+ selected true
+ xpos 4380
+ ypos -365
+ addUserKnob {20 User}
+ addUserKnob {4 colorspace l ColorSpace t "This is the color pace the painter painted in.\nNote: When the painter uses curves in photo shop its being done under the profile." M {log sRGB lin ProEXR}}
+ addUserKnob {41 psout l "PS Output" T ColorLookup3.psout}
+ addUserKnob {41 psin l "PS input" T ColorLookup3.psin}
+ addUserKnob {26 ""}
+ addUserKnob {41 linoutx l "lin X" T ColorLookup3.linoutx}
+ addUserKnob {41 linouty l "lin Y" T ColorLookup3.linouty}
+ addUserKnob {26 addpointtoo l "Add Point To"}
+ addUserKnob {41 RGB -STARTLINE T ColorLookup3.RGB}
+ addUserKnob {41 R -STARTLINE T ColorLookup3.R}
+ addUserKnob {41 G -STARTLINE T ColorLookup3.G}
+ addUserKnob {41 B -STARTLINE T ColorLookup3.B}
+ addUserKnob {41 lut l "" +STARTLINE T ColorLookup3.lut}
+ addUserKnob {26 ""}
+ addUserKnob {41 mix T ColorLookup3.mix}
+ addUserKnob {41 alpha l "(un)premult by" T Unpremult1.alpha}
+}
+ Input {
+  inputs 0
+  name M
+  xpos 62
+  ypos 39
+  number 1
+ }
+ Invert {
+  name Invert1
+  xpos 62
+  ypos 103
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 262
+  ypos -297
+ }
+set N6864b6d0 [stack 0]
+ Dot {
+  name Dot3
+  xpos -8
+  ypos -240
+ }
+ Dot {
+  name Dot4
+  xpos -8
+  ypos 212
+ }
+push $N6864b6d0
+ Unpremult {
+  alpha -rgba.alpha
+  name Unpremult1
+  selected true
+  xpos 262
+  ypos -256
+ }
+set N68649130 [stack 0]
+ Colorspace {
+  colorspace_out sRGB
+  name Colorspace3
+  xpos 449
+  ypos -214
+ }
+ Colorspace {
+  colorspace_in Cineon
+  name Colorspace4
+  xpos 449
+  ypos -188
+ }
+ Log2Lin {
+  operation lin2log
+  name Log2Lin3
+  xpos 449
+  ypos -150
+ }
+push $N68649130
+ Dot {
+  name Dot1
+  xpos 411
+  ypos -170
+ }
+push $N68649130
+ Colorspace {
+  colorspace_out sRGB
+  name Colorspace1
+  label srgb
+  xpos 262
+  ypos -187
+ }
+push $N68649130
+ Log2Lin {
+  operation lin2log
+  name Log2Lin1
+  xpos 137
+  ypos -179
+ }
+ Switch {
+  inputs 4
+  which {{colorspace i}}
+  name Switch1
+  xpos 262
+  ypos -128
+ }
+ ColorLookup {
+  channels rgb
+  maskChannelMask -rgba.alpha
+  name ColorLookup3
+  label PS
+  xpos 262
+  ypos -89
+  addUserKnob {20 PS_Curves}
+  addUserKnob {7 psout l "PS Output" R 0 255}
+  psout 255
+  addUserKnob {7 psin l "PS input" R 0 255}
+  psin 255
+  addUserKnob {26 ""}
+  addUserKnob {7 linoutx l "lin X"}
+  linoutx {{psin/255}}
+  addUserKnob {7 linouty l "lin Y"}
+  linouty {{psout/255}}
+  addUserKnob {26 addpointtoo l "Add Point To"}
+  addUserKnob {22 RGB -STARTLINE T "n = nuke.thisNode()\nk = n\['lut']\no = n\['linoutx']\nd = n\['linouty']\nk.setValueAt(d.getValue(0), o.getValue(0), 0)\n"}
+  addUserKnob {22 R -STARTLINE T "n = nuke.thisNode()\nk = n\['lut']\no = n\['linoutx']\nd = n\['linouty']\nk.setValueAt(d.getValue(0), o.getValue(0), 1)\n"}
+  addUserKnob {22 G -STARTLINE T "n = nuke.thisNode()\nk = n\['lut']\no = n\['linoutx']\nd = n\['linouty']\nk.setValueAt(d.getValue(1), o.getValue(1), 2)\n"}
+  addUserKnob {22 B -STARTLINE T "n = nuke.thisNode()\nk = n\['lut']\no = n\['linoutx']\nd = n\['linouty']\nk.setValueAt(d.getValue(2), o.getValue(2), 3)"}
+ }
+set N6864ef40 [stack 0]
+ Log2Lin {
+  name Log2Lin4
+  xpos 396
+  ypos -83
+ }
+ Colorspace {
+  channels all
+  colorspace_out Cineon
+  name Colorspace5
+  xpos 495
+  ypos -89
+ }
+ Colorspace {
+  colorspace_in sRGB
+  name Colorspace6
+  xpos 495
+  ypos -39
+ }
+set N686504c0 [stack 0]
+push $N6864ef40
+ Dot {
+  name Dot2
+  xpos 376
+  ypos -18
+ }
+push $N6864ef40
+ Colorspace {
+  colorspace_in sRGB
+  name Colorspace2
+  label srgb
+  xpos 262
+  ypos -24
+ }
+push $N6864ef40
+ Log2Lin {
+  name Log2Lin2
+  xpos 170
+  ypos -7
+ }
+ Switch {
+  inputs 4
+  which {{parent.Switch1.which i}}
+  name Switch2
+  xpos 262
+  ypos 72
+ }
+ Premult {
+  alpha {{{Unpremult1.alpha}}}
+  name Premult1
+  xpos 262
+  ypos 98
+ }
+ Keymix {
+  inputs 3
+  name Keymix1
+  xpos 262
+  ypos 202
+ }
+ Output {
+  name Output1
+  xpos 262
+  ypos 276
+ }
+push $N686504c0
+ Viewer {
+  viewerProcess None
+  input_process_node Conan_IP1
+  input_process false
+  name Viewer1
+  xpos 483
+  ypos 120
+ }
+end_group

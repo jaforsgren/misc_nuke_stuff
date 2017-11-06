@@ -1,0 +1,950 @@
+#! C:/Program Files/Nuke10.5v1/nuke-10.5.1.dll -nx
+version 10.5 v1
+Gizmo {
+ inputs 0
+ addUserKnob {20 Settings}
+ addUserKnob {6 lightRigHalf l "only top half" +STARTLINE}
+ addUserKnob {18 lightRigColor l color}
+ lightRigColor 1
+ addUserKnob {6 lightRigColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {7 lightRigIntensity l intensity}
+ lightRigIntensity 1
+ addUserKnob {68 lightRigFallOff l "falloff type" M {"no falloff" linear quadratic cubic "" "" "" ""}}
+ addUserKnob {20 lightRigShadows l Shadows n 1}
+ lightRigShadows 0
+ addUserKnob {6 lightRigCastShadows l "cast shadows" +STARTLINE}
+ addUserKnob {68 lightRigShadowMode l "shadow mode" M {solid "clipped alpha" "full alpha" ""}}
+ addUserKnob {7 lightRigShadowSamples l samples R 0 70}
+ lightRigShadowSamples 1
+ addUserKnob {7 lightRigShadowBias l bias R 0 0.5}
+ lightRigShadowBias 0.01
+ addUserKnob {7 lightRigSlopeBias l "slope bias" R 0 0.5}
+ lightRigSlopeBias 0.01
+ addUserKnob {7 lightRigClippingTreshold l "clipping treshold"}
+ lightRigClippingTreshold 0.5
+ addUserKnob {7 lightRigJitter l "jitter scale" R 0 20}
+ lightRigJitter 3
+ addUserKnob {7 lightRigDepthmapRes l "depthmap resolution" R 0 8192}
+ lightRigDepthmapRes 1024
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {13 lightRigTranslate l translate}
+ addUserKnob {13 lightRigRotation l rotation}
+ addUserKnob {7 lightRigScale l "uniform scale" R 0.01 10}
+ lightRigScale 1
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 nodeInfo l "" +STARTLINE T "Created by Xabier Arrieta. For more information and suggestions, please visit http://arrieta.me or send me an email to xabi_arrieta@hotmail.com"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0xaaaaaa00
+  label "Light rig"
+  note_font_size 42
+  xpos -992
+  ypos -2538
+  bdwidth 4730
+  bdheight 475
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x7171c600
+  label "<center>Light rig transformations"
+  note_font_size 42
+  xpos 989
+  ypos -2930
+  bdwidth 663
+  bdheight 243
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x7171c600
+  label "\n\n\n\nRig type"
+  note_font_size 42
+  xpos 989
+  ypos -1802
+  bdwidth 663
+  bdheight 243
+ }
+ Axis2 {
+  inputs 0
+  translate {{parent.lightRigTranslate.x} {parent.lightRigTranslate.y} {parent.lightRigTranslate.z}}
+  rotate {{parent.lightRigRotation.x} {parent.lightRigRotation.y} {parent.lightRigRotation.z}}
+  uniform_scale {{parent.lightRigScale}}
+  name Axis2
+  xpos 1290
+  ypos -2814
+ }
+ Axis2 {
+  uniform_scale 0.01
+  name Axis1
+  xpos 1290
+  ypos -2478
+ }
+set N6185e800 [stack 0]
+add_layer {fakeGIShadow fakeGIShadow.r}
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 0 1000}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light26
+  xpos 1840
+  ypos -2262
+ }
+set N61a8ac00 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {707.1 0 707.1}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light25
+  xpos 1730
+  ypos -2262
+ }
+set N61a8a800 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {1000 0 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light24
+  xpos 1620
+  ypos -2262
+ }
+set N62e56000 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {707.1 0 -707.1}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light23
+  xpos 1510
+  ypos -2262
+ }
+set N62ea1c00 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 0 -1000}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light22
+  xpos 1400
+  ypos -2262
+ }
+set N62ea1800 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-707.1 0 -707.1}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light21
+  xpos 1290
+  ypos -2262
+ }
+set N62ea1400 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-1000 0 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light20
+  xpos 1180
+  ypos -2262
+ }
+set N640b8800 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-707.1 0 707.1}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light19
+  xpos 1070
+  ypos -2262
+ }
+set N644c7800 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 500 866}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light18
+  xpos 960
+  ypos -2262
+ }
+set N644c7400 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-612.4 500 612.4}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light17
+  xpos 850
+  ypos -2262
+ }
+set N644c7000 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-866 500 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light16
+  xpos 740
+  ypos -2262
+ }
+set N644c6c00 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-612.4 500 -612.4}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light15
+  xpos 630
+  ypos -2262
+ }
+set N644c6800 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 500 -866}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light14
+  xpos 520
+  ypos -2262
+ }
+set N6f3b6400 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {612.4 500 -612.4}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light13
+  xpos 410
+  ypos -2262
+ }
+set N6f3b6000 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {866 500 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light12
+  xpos 300
+  ypos -2262
+ }
+set N6f405c00 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {612.4 500 612.4}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light11
+  xpos 190
+  ypos -2262
+ }
+set N6f784400 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {353.6 866 353.6}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light10
+  xpos 80
+  ypos -2262
+ }
+set N6fb5d800 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 866 500}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light9
+  xpos -30
+  ypos -2262
+ }
+set N6fb5d400 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-353.6 866 353.6}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light8
+  xpos -140
+  ypos -2262
+ }
+set N6fb5d000 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-500 866 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light7
+  xpos -250
+  ypos -2262
+ }
+set N6fb5cc00 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-353.6 866 -353.6}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light6
+  xpos -360
+  ypos -2262
+ }
+set N6fb5c800 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 866 -500}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light5
+  xpos -470
+  ypos -2262
+ }
+set N6fd43c00 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {353.6 866 -353.6}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light4
+  xpos -580
+  ypos -2262
+ }
+set N6fd43800 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {500 866 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light3
+  xpos -684
+  ypos -2262
+ }
+set N6fd43400 [stack 0]
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{parent.lightRigFallOff}}
+  translate {0 1000 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light1
+  xpos -910
+  ypos -2262
+ }
+set N700d1800 [stack 0]
+ MergeGeo {
+  inputs 25
+  name MergeGeo2
+  label "ONLY TOP HALF "
+  xpos 1390
+  ypos -1690
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {353.6 -866 353.6}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light42
+  xpos 3600
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 -866 500}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light41
+  xpos 3490
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-353.6 -866 353.6}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light40
+  xpos 3380
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-500 -866 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light39
+  xpos 3270
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-353.6 -866 -353.6}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light38
+  xpos 3160
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 -866 -500}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light37
+  xpos 3050
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {353.6 -866 -353.6}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light36
+  xpos 2940
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {500 -866 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light35
+  xpos 2830
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 -500 866}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light34
+  xpos 2720
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-612.4 -500 612.4}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light33
+  xpos 2610
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-866 -500 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light32
+  xpos 2500
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {-612.4 -500 -612.4}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light31
+  xpos 2390
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 -500 -866}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  samples {{lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light30
+  xpos 2280
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {612.4 -500 -612.4}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light29
+  xpos 2170
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {866 -500 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light28
+  xpos 2060
+  ypos -2262
+ }
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {612.4 -500 612.4}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light27
+  xpos 1950
+  ypos -2262
+ }
+push $N61a8ac00
+push $N61a8a800
+push $N62e56000
+push $N62ea1c00
+push $N62ea1800
+push $N62ea1400
+push $N640b8800
+push $N644c7800
+push $N6f784400
+push $N6f405c00
+push $N6f3b6000
+push $N6f3b6400
+push $N644c6800
+push $N644c6c00
+push $N644c7000
+push $N644c7400
+push $N6fb5d800
+push $N6fb5d400
+push $N6fb5d000
+push $N6fb5cc00
+push $N6fb5c800
+push $N6fd43c00
+push $N6fd43800
+push $N6fd43400
+push $N6185e800
+ Light2 {
+  color {{lightRigColor}}
+  intensity {{lightRigIntensity}}
+  falloff_type {{fakeGI.lightRigFallOff}}
+  translate {0 -1000 0}
+  cast_shadows {{fakeGI.lightRigCastShadows}}
+  shadow_mode {{fakeGI.lightRigShadowMode}}
+  samples {{fakeGI.lightRigShadowSamples}}
+  depthmap_bias {{fakeGI.lightRigShadowBias}}
+  depthmap_slope_bias {{parent.lightRigSlopeBias}}
+  clipping_threshold {{parent.lightRigClippingTreshold}}
+  shadow_jitter_scale {{parent.lightRigJitter}}
+  depthmap_width {{parent.lightRigDepthmapRes}}
+  shadow_mask fakeGIShadow.r
+  name Light2
+  xpos -800
+  ypos -2262
+ }
+push $N700d1800
+ MergeGeo {
+  inputs 42
+  name MergeGeo1
+  label "COMPLETE RIG"
+  xpos 1170
+  ypos -1690
+ }
+ Switch {
+  inputs 2
+  which {{lightRigHalf}}
+  name Switch1
+  xpos 1280
+  ypos -1628
+ }
+ Output {
+  name Output1
+  xpos 1280
+  ypos -1378
+ }
+end_group

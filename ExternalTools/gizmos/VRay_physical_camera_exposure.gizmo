@@ -1,0 +1,73 @@
+#! C:/Program Files/Nuke9.0v6/nuke-9.0.6.dll -nx
+version 9.0 v6
+Gizmo {
+ addUserKnob {20 CameraAttributes}
+ addUserKnob {41 f_n l f_number T VRayPhysicalCamera_expressions.f_n}
+ addUserKnob {41 s l shutter_speed T VRayPhysicalCamera_expressions.s}
+ addUserKnob {41 iso l ISO T VRayPhysicalCamera_expressions.iso}
+ addUserKnob {41 f_l l focal_length T VRayPhysicalCamera_expressions.f_l}
+ addUserKnob {41 f_d l focus_distance T VRayPhysicalCamera_expressions.f_d}
+ addUserKnob {26 ""}
+ addUserKnob {41 w_b l white_balance T VRayPhysicalCamera_expressions.w_b}
+ addUserKnob {41 w_b_panelDropped l "panel dropped state" T VRayPhysicalCamera_expressions.w_b_panelDropped}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -40
+  ypos 28
+ }
+ Expression {
+  temp_name0 ap_d
+  temp_expr0 "f_l * f_d / (f_d - f_l)"
+  temp_name1 R_coef
+  temp_expr1 "f_d / ap_d"
+  temp_name2 A_eff
+  temp_expr2 "f_n * ( (R_coef + 1.0) / R_coef)"
+  temp_name3 w_b_int
+  temp_expr3 "(w_b.r + w_b.g + w_b.b) * 0.333333333"
+  expr0 "r * (iso * 65 * 1500 * w_b.r) / (s * pi * 78 * 100 * pow(A_eff, 2) * w_b_int)"
+  expr1 "g * (iso * 65 * 1500 * w_b.g) / (s * pi * 78 * 100 * pow(A_eff, 2) * w_b_int)"
+  expr2 "b * (iso * 65 * 1500 * w_b.b) / (s * pi * 78 * 100 * pow(A_eff, 2) * w_b_int)"
+  channel3 none
+  name VRayPhysicalCamera_expressions
+  tile_color 0xff
+  gl_color 0xff
+  note_font Verdana
+  xpos -40
+  ypos 70
+  lifetimeStart 1
+  lifetimeEnd 100
+  addUserKnob {20 CameraAttributes}
+  addUserKnob {7 f_n l f_number R 0 30}
+  f_n 5.9
+  addUserKnob {7 s l shutter_speed t "the actual shutter speed is: 1/shutter_speed" R 0 6000}
+  s 860
+  addUserKnob {7 iso l ISO R 0 10000}
+  iso 100
+  addUserKnob {7 f_l l focal_length t "in cm" R 0 1000}
+  f_l 5
+  addUserKnob {7 f_d l focus_distance t "in cm" R 0 10000}
+  f_d 100
+  addUserKnob {26 ""}
+  addUserKnob {18 w_b l white_balance}
+  w_b {1 1 1}
+  addUserKnob {6 w_b_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  w_b_panelDropped true
+ }
+ Output {
+  name Output1
+  xpos -40
+  ypos 150
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote1
+  label "  // Take f-number and focal length into account;\n  // based on ISO 12232:2006(E) standard for measuring ISO\n  // of electronic sensors (defines the ISO number in respect\n  // to the amount of light necessary for producing a unit\n  // response in the sensor)\n "
+  note_font Verdana
+  note_font_size 12
+  xpos 124
+  ypos 35
+  bookmark true
+ }
+end_group
