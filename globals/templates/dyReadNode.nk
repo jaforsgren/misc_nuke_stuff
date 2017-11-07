@@ -1,0 +1,87 @@
+#! C:/Program Files/Nuke10.5v6/nuke-10.5.6.dll -nx
+version 10.5 v6
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1920" h="1160" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1241" stretch="1"/>
+            <splitter orientation="2">
+                <split size="642"/>
+                <dock id="" activePageId="uk.co.thefoundry.scripteditor.2">
+                    <page id="Viewer.1"/>
+                    <page id="uk.co.thefoundry.scripteditor.2"/>
+                </dock>
+                <split size="452"/>
+                <dock id="" activePageId="DAG.1">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1" focus="true">
+                <page id="Properties.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name //DISKSTATION/Projects/_Admin/Lokaler_utrustning_can/Datorer_natverk/shared/workgroups/nuke/globals/templates/dyReadNode.nk
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Viewer {
+ inputs 0
+ frame 1
+ frame_range 1-100
+ name Viewer1
+ xpos -40
+ ypos -10
+}
+Read {
+ inputs 0
+ file "//diskstation/Projects/\[value clientdd]/\[value projectdd]/Development/\[value taskdd]/Max/RenderOutput/\[value datedd]/\[value imagedd]"
+ localizationPolicy off
+ format "800 800 0 0 800 800 1 "
+ origset true
+ name dyRead2
+ label "\[value clientdd]"
+ selected true
+ xpos -308
+ ypos -48
+ addUserKnob {20 User l "Dynagprah Read Settings"}
+ addUserKnob {26 ""}
+ addUserKnob {52 initReadnode l ww +STARTLINE}
+ addUserKnob {22 initbtn l INVISIBLE +INVISIBLE +STARTLINE}
+ addUserKnob {26 title l "" t "Dynagraph Read Node" +STARTLINE T "DYNAGRAPH READ NODE"}
+ addUserKnob {26 ""}
+ addUserKnob {26 versionlabel l "" +STARTLINE T <center>v0.1}
+ addUserKnob {26 ""}
+ addUserKnob {4 projectdd l project M {10.18_20170928_Vikingbad_OctoberProject 1.9_DNG182_Viking12 2.10_DNG184_Baththubs_Project1 3.11_DNG185_Servanter 4.12_DNG187_Servanter 5.13_DNG188_Sommarprojekt 6.14_DNG189_Autumnproject 7.15_DNG190_Modeller 8.16_DNG191_Sommarprojekt 9.17_20170823_Augustibild}}
+ projectdd 9.17_20170823_Augustibild
+ addUserKnob {4 clientdd l Client M {Vikingbad tmp Vedum _Projekt_införsäljning Ikea}}
+ addUserKnob {26 ""}
+ addUserKnob {4 taskdd l task M {3D 1.0 4 2.1 2.3.2 4.0 2.4 3.0 5.0 2.2.1 2.2 2.3.1 2.2.2}}
+ taskdd 4
+ addUserKnob {4 datedd l Version M {20171027 20171028 20171029 20171030 20171031 20171101 20171102 20171103 20171106 Master old 20171020 20171021 20171023 20171024 20171025 20171025_Manuell 20171025_Manuell_BB}}
+ datedd 20171028
+ addUserKnob {4 imagedd l image M {Autumn_2017_21_Environment002_01_ADA_mid_60_Mie_svart.0000.exr Autumn_2017_21_Environment002_01_ADA_mid_80_Mie_svart.0000.exr Autumn_2017_21_Environment002_01_ADA_mid_90_Mie_svart.0000.exr Autumn_2017_21_Environment002_01_ADA_mid_100_Mie_svart.0000.exr Autumn_2017_21_Environment002_01_ADA_mid_120_Mie_svart.0000.exr Autumn_2017_21_Environment002_01_ADA_mid_120_dubbel_Mie_svart.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_Mirror_IDA060.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_Mirror_IDA090.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_Mirror_IDA120.0000.exr Autumn_2017_21_Environment002_01_ADA_thin_60_Mie_vit.0000.exr Autumn_2017_21_Environment002_01_ADA_thin_90_Mie_vit.0000.exr Autumn_2017_21_Environment002_01_ADA_mid_60_Mie_vit.0000.exr Autumn_2017_21_Environment002_01_ADA_mid_80_Mie_vit.0000.exr Autumn_2017_21_Environment002_01_ADA_mid_90_Mie_vit.0000.exr Autumn_2017_21_Environment002_01_ADA_mid_100_Mie_vit.0000.exr Autumn_2017_21_Environment002_01_ADA_mid_120_Mie_vit.0000.exr Autumn_2017_21_Environment002_01_ADA_thin_60_Mie_svart.0000.exr Autumn_2017_21_Environment002_01_ADA_thin_90_Mie_svart.0000.exr _old Autumn_2017_21_Environment002_01_MIE_Mid_Mirror_IDA1500.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_MirrorCabinet_IDA060.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_MirrorCabinet_IDA090.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_MirrorCabinet_IDA120.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_MirrorCabinet_IDA1500.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_MirrorLED_IDA060.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_MirrorLED_IDA090.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_MirrorLED_IDA120.0000.exr Autumn_2017_21_Environment002_01_MIE_Mid_MirrorLED_IDA1500.0000.exr}}
+ addUserKnob {26 ""}
+ addUserKnob {22 initimages l "init images" +STARTLINE}
+ addUserKnob {22 renderall l "Render All Writenodes" -STARTLINE T renderAllWrites()}
+ addUserKnob {26 ""}
+}
