@@ -33,7 +33,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name //DISKSTATION/Projects/_Admin/Lokaler_utrustning_can/Datorer_natverk/shared/workgroups/nuke/globals/templates/dyGroupRead.nk
+ name .../shared/workgroups/nuke/globals/templates/dyGroupRead.nk
  format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
  proxy_type scale
  proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
@@ -55,16 +55,16 @@ Group {
  addUserKnob {20 User}
  addUserKnob {26 ""}
  addUserKnob {2 dir l Directory}
- dir //DISKSTATION/Projects/Vikingbad/Komponentbibliotek/PreviewStudio/RenderOuput/20171016/
+ dir Projects/client01/Komponentbibliotek/PreviewStudio/RenderOuput/20171016/
  addUserKnob {26 ""}
  addUserKnob {2 output l Output}
- output //DISKSTATION/Projects/Vikingbad/Komponentbibliotek/PreviewStudio/RenderOuput/20171016/jpg/
+ output Projects/client01/Komponentbibliotek/PreviewStudio/RenderOuput/20171016/jpg/
  addUserKnob {26 ""}
  addUserKnob {22 run l Run! T "import os\ndef getOutputs(node,classof ,writenodelist):\n    \n    o = node.dependent() \n    for i in o:        \n        if  i.Class() == classof:\n            #print i.name()\n            writenodelist.append(i)        \n        writenodelist = getOutputs(i,classof,writenodelist)        \n    return writenodelist\n\n\n\n\ndef run():\n    #r = nuke.toNode('dyGroupRead')\n    r = nuke.thisNode()\n    writeNodes = getOutputs(r,\"Write\",\[])\n    folderpath = r\['dir'].getValue() \n    readFilepath = \"\" \n    print writeNodes\n    with r:\n        readNode = nuke.toNode(\"dyGroupRead_readnode\")\n        readFilepath = readNode\['file'].getValue()\n        readFolder,filename  = os.path.split(readFilepath)\n\n        \n    for render in os.listdir(folderpath):\n\n        readNode.knob('file').setValue(folderpath+render)\n        print render\n    \n        #writeNode.knob('file').setValue(outputDir+render+\".jpg\")  \n        \n    \n        for writeNode in writeNodes:\n            #print writeNode.name()    \n            # set output         \n            outputPath = os.path.join(folderpath, \"jpg\")\n            filename = os.path.splitext(filename)\[0].replace(\".0000\",\"\")   \n            writeNode\['create_directories'].setValue(1)\n            try:\n                nuke.execute(writeNode,0,0)\n            except:\n                 print(\"Could not render\" , render )\n    with r:\n        readNode = nuke.toNode(\"dyGroupRead_readnode\")\n        readNode\['file'].setValue(readFilepath)\n\nrun()\n\n" +STARTLINE}
 }
  Read {
   inputs 0
-  file //DISKSTATION/Projects/Vikingbad/Komponentbibliotek/PreviewStudio/RenderOuput/20171016/Oval_61360940000.exr
+  file Projects/client01/Komponentbibliotek/PreviewStudio/RenderOuput/20171016/Oval_61360940000.exr
   format "1500 1500 0 0 1500 1500 1 "
   origset true
   name dyGroupRead_readnode

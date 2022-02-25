@@ -47,38 +47,3 @@ nuke.menu( 'Nodes' ).addCommand('Comp/Stencil','nuke.createNode("Merge2","operat
 nuke.menu( 'Nodes' ).addCommand('Comp/Mask','nuke.createNode("Merge2","operation mask")', 'ctrl+alt+shift+a')
 nuke.menu( 'Nodes' ).addCommand("Stencil", 'nuke.createNode("Merge2", "operation stencil")','Ctrl+m')
 nuke.menu( 'Nodes' ).addCommand("Copy", 'nuke.createNode("Merge2", "operation copy")','Ctrl+shift+m')
-
-'''
-## Hidden Input Handler
-# Add these lines to your menu.py:
-import hidden_input_handler
-nuke.toolbar('Nodes').addCommand('Other/PostageStamp', 'hidden_input_handler.create()', 'alt+shift+p')
-nuke.menu("Nuke").addCommand('Edit/Cut', lambda: hidden_input_handler.cut(), 'ctrl+x')
-nuke.menu("Nuke").addCommand('Edit/Copy', lambda: hidden_input_handler.copy(), 'ctrl+c')
-nuke.menu("Nuke").addCommand('Edit/Paste', lambda: hidden_input_handler.paste(), 'ctrl+v')
-nuke.menu("Nuke").addCommand('Edit/PasteNormal', lambda: nuke.nodePaste(nukescripts.cut_paste_file()), 'ctrl+alt+shift+v', index=6) # In case you need to paste with the default treatment of hidden inputs
-'''
-
-
-
-''' # We start by finding the "Nodes" menu.
-nodes_menu = nuke.menu('Nodes')
-
-# Here we verify that we got it correctly.
-print nodes_menu.name()
-
-# From there, we find the "Color" menu.
-color = nodes_menu.findItem('Color')
-# Also verifying that we got it.
-print color.name()
-
-# Now we grab the Posterize item.
-posterize = color.findItem('Posterize')
-# Verifying that we got it correctly and seeing if it already has a shortcut.
-print posterize.name(), 'has this shortcut assigned:', posterize.shortcut()
-
-posterize.setShortcut('Ctrl+P')
-
-help(nuke.menu)
-
- '''
